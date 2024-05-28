@@ -2,7 +2,7 @@ let pila = [];
 
 const guardar = (dato) => {
     pila.push(dato);
-    alert("Elemeletnto guardado en la pila");
+    alert("Elemento guardado en la pila");
     return true;
 };
 
