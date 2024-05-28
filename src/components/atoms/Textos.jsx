@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import React from "react";
-import { guardar, imprimir } from "../../data/pilas";
+import React, {useState} from "react";
+import { guardar, obtenerElementos } from "../../data/pilas";
 
 const ButtonStyled = styled.button`
-    width: 80%;
+    width: 100%;
     height: 50px;
     background-color: #587158;
     border-radius: 10px;
@@ -16,15 +16,40 @@ const ButtonStyled = styled.button`
     }
 `;
 
+const ElementosPila = styled.div`
+    margin-top: 20px;
+    width: 100%;
+    color: #333;
+`;
+
+const Elemento = styled.div`
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+`;
+
 const Textos = ({datos}) => {
+    const [elementos, setElementos] = useState([]);
+
     const handleGuardar = () => {
         guardar(datos);
-        imprimir();
-    };
+        setElementos([...elementos,datos])
+    }
 
-    return (
-        <ButtonStyled onClick={handleGuardar}>Guardar e Imprimir Pila</ButtonStyled>
-    );
+    return(
+        <div>
+            <ButtonStyled onClick={handleGuardar}>Guardar e Imprimir pila</ButtonStyled>
+            <ElementosPila>
+                {elementos.map((elem, index) => (
+                    <Elemento key={index}>
+                        {`Elemento ${index + 1}: ${JSON.stringify(elem)}`}
+                    </Elemento>
+                ))}
+            </ElementosPila>
+        </div>
+    )
 };
 
 export default Textos;
